@@ -1,0 +1,18 @@
+version: "3.4"
+
+services:
+    mailer:
+        build:
+            context: ./${PATH_MAILER}/../
+            dockerfile: ./docker/mailer/Dockerfile
+        image: aegee/mailer:dev
+        volumes:
+            - ./${PATH_MAILER}/../config/:/usr/app/src/config
+            - ./${PATH_MAILER}/../lib/:/usr/app/src/lib
+            - ./${PATH_MAILER}/../middlewares/:/usr/app/src/middlewares
+
+    mail-transfer-agent:
+        build:
+            context: ./${PATH_MAILER}/..
+            dockerfile: docker/mail_transfer_agent/Dockerfile
+        image: aegee/mail-transfer-agent:dev
